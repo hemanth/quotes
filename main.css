@@ -9,5 +9,16 @@
     overflow-y: hidden;
     top: 0; right: 0; bottom: 0; left: 0;
   }
+  p#quote {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-size:24px;
+	margin-top: 5px; margin-bottom: 0px;
+	text-align: center;
+        font-weight: normal;
+        color: #222;
+        text-shadow: 1px -3px 17px rgba(185, 183, 199, 0.94);
+  }
+  p#info {}
+
 </style>
 
