@@ -18,10 +18,56 @@
         <![endif]-->
 
 	<div class="fullscreen">
-		<a href="https://github.com/hemanth/quote"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+		<div id="ribbon"></div>
 		<p id="quote">"The best method for accelerating a computer is the one that boosts it by 9.8 m/s2."- Anonymous</p>
                 <p id="info"> My fav quotes! Updates once in 6000ms :D</p>
         </div>
-        <script src="random.js"></script>
     </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
+     <script type="text/jsx">
+      var RibbonImage = React.createClass({
+        render: function(){
+            var ribbonStyle = {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                border: 0
+            };
+            return (<img style={ribbonStyle} 
+                src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" 
+                alt="Fork me on GitHub"/>);
+        }
+      });
+      var Ribbon = React.createClass({
+        render: function(){
+            return ( <a href={this.props.repo}> <RibbonImage/> </a>
+                );
+        }
+      });
+
+      var Quote = React.createClass({
+        getInitialState: function() {
+            var quotes = new XMLHttpRequest();
+            quotes.open('GET', 'quotes', false);
+            quotes.send(null);
+            var wisdom = quotes.responseText.split('\n');
+            return {wisdom: wisdom};
+        },
+        componentDidMount: function() {
+            var node = this.getDOMNode();
+            node.innerHTML = this.state.wisdom[0];
+            setInterval(function(){
+                node.innerHTML = this.state.wisdom[Math.floor(Math.random() * this.state.wisdom.length)]
+            }.bind(this),6000);
+        },
+        render: function(){
+            return <p/>;
+        }
+    });
+        
+    React.render(<Quote />,document.getElementById('quote'));
+    React.render(<Ribbon repo="https://github.com/hemanth/quote"/>,document.getElementById('ribbon'))
+      
+    </script>
 </html>
